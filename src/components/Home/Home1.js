@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import LocationMap from '../Map/Map';
 import './Home.css';
 
 const API_BASE = 'http://localhost:8000/api';
@@ -92,7 +91,7 @@ function Home({ user, onLogout }) {
   return (
     <div className="home-container">
       <header className="header">
-        <h1>IP Geolocation App</h1>
+        <h1>IP Geolocation Tracker</h1>
         <div className="user-info">
           <span>Welcome, {user?.email}</span>
           <button onClick={handleLogout} className="logout-btn">Logout</button>
@@ -100,6 +99,7 @@ function Home({ user, onLogout }) {
       </header>
 
       <div className="main-content">
+        {/* Search Section - Full Width */}
         <div className="search-section">
           <form onSubmit={handleSearch} className="search-form">
             <input
@@ -120,9 +120,9 @@ function Home({ user, onLogout }) {
 
         {loading && <div className="loading">Fetching geolocation data...</div>}
 
+        {/* IP Details Section - Left Side */}
         {geoData && !loading && (
-            <>
-            <div className="ip-details-section">
+          <div className="ip-details-section">
             <h2>IP Address Details</h2>
             <div className="geo-details">
               <div className="detail-item">
@@ -155,12 +155,9 @@ function Home({ user, onLogout }) {
               </div>
             </div>
           </div>
-
-            {/* Map Component */}
-            <LocationMap geoData={geoData} />
-          </>
         )}
 
+        {/* History Section - Right Side */}
         <div className="history-section">
           <div className="history-header">
             <h3>Search History</h3>
@@ -188,12 +185,12 @@ function Home({ user, onLogout }) {
                 <div className="history-info">
                   <strong>{item.ip_address}</strong>
                   <span>{item.geo_data.city}, {item.geo_data.country}</span>
-                  <small>{new Date(item.searched_at).toLocaleString()}</small>
+                  <small>Searched: {new Date(item.searched_at).toLocaleString()}</small>
                 </div>
               </div>
             ))}
             {history.length === 0 && (
-              <p className="no-history">No search history yet</p>
+              <p className="no-history">No search history yet. Start by searching for an IP address!</p>
             )}
           </div>
         </div>

@@ -16,3 +16,4 @@ React frontend for IP Geolocation assessment.
 - React 18
 - Axios for API calls
 - CSS3 for styling
+- Leaflet for Map Visualization
